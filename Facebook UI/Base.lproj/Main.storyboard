@@ -1,24 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4US-fL-0l7">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Facebook-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Facebook_UI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LLb-XZ-mkw">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PostCell" rowHeight="207" id="LBS-Ub-N7w" customClass="PostViewCell" customModule="Facebook_UI" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="207"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LBS-Ub-N7w" id="4we-XL-Er4" userLabel="view">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="207"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 hours ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kpb-hN-QwY">
+                                                    <rect key="frame" x="58" y="34" width="62.333333333333343" height="13.333333333333336"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ore-Wz-x6a">
+                                                    <rect key="frame" x="10" y="60" width="373" height="137"/>
+                                                    <string key="text">'m trying to get my tableview to work so when a cell is clicked it resizes to fit the content inside the cell automatically. (Different amounts of text will automatically re-size different.fdfsfs clicked it resizes to fit the content inside the cell automatically. (Different amounts of text will automatically re-size different.fdfsfs</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="SNv-ea-Tlr">
+                                                    <rect key="frame" x="10" y="10.666666666666668" width="40" height="38.666666666666657"/>
+                                                    <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="7YA-sT-idp"/>
+                                                        <constraint firstAttribute="height" constant="40" id="Q8a-yS-76G"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bassel Alaa" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DND-fq-ujK">
+                                                    <rect key="frame" x="58" y="10" width="96" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="DND-fq-ujK" firstAttribute="top" secondItem="4we-XL-Er4" secondAttribute="top" constant="10" id="4iU-mD-ppW"/>
+                                                <constraint firstItem="DND-fq-ujK" firstAttribute="leading" secondItem="SNv-ea-Tlr" secondAttribute="trailing" constant="8" id="8Jb-gv-Q9q"/>
+                                                <constraint firstItem="Ore-Wz-x6a" firstAttribute="leading" secondItem="4we-XL-Er4" secondAttribute="leading" constant="10" id="ARV-3Z-pUD"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ore-Wz-x6a" secondAttribute="trailing" constant="10" id="E48-sG-pcM"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ore-Wz-x6a" secondAttribute="bottom" constant="10" id="Psj-W6-1qA"/>
+                                                <constraint firstItem="SNv-ea-Tlr" firstAttribute="leading" secondItem="4we-XL-Er4" secondAttribute="leading" constant="10" id="TpQ-yV-cUj"/>
+                                                <constraint firstItem="SNv-ea-Tlr" firstAttribute="top" secondItem="4we-XL-Er4" secondAttribute="top" constant="10" id="XpL-AP-bmg"/>
+                                                <constraint firstItem="Kpb-hN-QwY" firstAttribute="leading" secondItem="SNv-ea-Tlr" secondAttribute="trailing" constant="8" id="Zn2-Zr-nXK"/>
+                                                <constraint firstItem="Kpb-hN-QwY" firstAttribute="top" secondItem="DND-fq-ujK" secondAttribute="bottom" constant="3" id="hF2-ul-Z65"/>
+                                                <constraint firstItem="Ore-Wz-x6a" firstAttribute="top" secondItem="SNv-ea-Tlr" secondAttribute="bottom" constant="10" id="t3P-cL-a43"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="postData" destination="Kpb-hN-QwY" id="Q9p-wS-cos"/>
+                                            <outlet property="postText" destination="Ore-Wz-x6a" id="XYi-Qc-U09"/>
+                                            <outlet property="profileName" destination="DND-fq-ujK" id="lU5-Em-lNm"/>
+                                            <outlet property="profilePic" destination="SNv-ea-Tlr" id="rAQ-wk-3El"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="LLb-XZ-mkw" secondAttribute="bottom" id="6zc-u4-i9Z"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LLb-XZ-mkw" secondAttribute="trailing" id="IRS-1T-FBf"/>
+                            <constraint firstItem="LLb-XZ-mkw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JLe-er-nXy"/>
+                            <constraint firstItem="LLb-XZ-mkw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="RQi-Df-6bz"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Facebook" leftItemsSupplementBackButton="YES" id="wGv-HM-W7C">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="bolt.circle.fill" catalog="system" style="plain" id="OEK-yx-SSv">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </barButtonItem>
+                            <barButtonItem style="plain" systemItem="search" id="xDv-Ze-ygp">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </barButtonItem>
+                            <barButtonItem image="plus.circle.fill" catalog="system" style="plain" id="o5S-36-Rj9">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="postsTV" destination="LLb-XZ-mkw" id="vjM-Es-59D"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="304.58015267175574" y="-87.323943661971839"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="bW2-zq-WVi">
+            <objects>
+                <navigationController id="4US-fL-0l7" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lr2-AU-9dx">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="cvf-Eu-ak0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="89Q-QB-Isx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-514" y="-87"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bolt.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="person.crop.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="123"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
