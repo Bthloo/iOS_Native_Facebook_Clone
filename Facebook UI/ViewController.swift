@@ -30,31 +30,22 @@ class ViewController: UIViewController {
     }
     
     
-    
-    func changeNavCtrl(){
-        
-        let titleFont = UIFont.boldSystemFont(ofSize: 24)
-        let titleColor = UIColor.tintColor
-            navigationController?.navigationBar.titleTextAttributes = [
-                NSAttributedString.Key.font: titleFont,
-                NSAttributedString.Key.foregroundColor: titleColor
-            ]
-            
-            let titleLabel = UILabel()
-            titleLabel.text = "Facebook"
-            titleLabel.textColor = titleColor
-            titleLabel.font = titleFont
-          //  titleLabel.textAlignment = .left
-        titleLabel.frame = CGRect(x: 0, y: 0, width: 200, height: 40)
-            navigationItem.titleView = titleLabel
-        //navigationController?.hidesBarsOnSwipe = true
-    }
 
 
 }
 
 
-extension ViewController : UITableViewDelegate,UITableViewDataSource{
+extension ViewController : UITableViewDelegate,UITableViewDataSource,PostCellDelegate{
+    func showComments(indexPath: IndexPath) {
+        
+        let showCommentVC =  self.storyboard?.instantiateViewController(withIdentifier: "ShowCommentVC") as! ShowCommentsVC
+        
+        showCommentVC.modalPresentationStyle = .pageSheet
+        showCommentVC.modalTransitionStyle = .coverVertical
+        present(showCommentVC, animated: true, completion: nil)
+       
+    }
+    
     
     
     
@@ -70,12 +61,8 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource{
         cell.postText.text = posts[indexPath.row].content
         cell.numberOfLikes.text = "\(posts[indexPath.row].reactions) likes"
         cell.numberOfComment.text = "\(posts[indexPath.row].comments.count) comments"
-        cell.likeButtonAction = {
-           
-          
-          
-               }
-        
+        cell.delegate = self
+        cell.indexPath = indexPath
         return cell
     }
     

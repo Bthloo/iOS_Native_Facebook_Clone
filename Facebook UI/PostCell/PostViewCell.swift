@@ -11,7 +11,8 @@ class PostViewCell: UITableViewCell {
     
    
     
-    //var likeBTNAction: (() -> Void)?
+    weak var delegate: PostCellDelegate?
+       var indexPath: IndexPath!
 
     @IBOutlet weak var profilePic: UIView!
     
@@ -42,15 +43,19 @@ class PostViewCell: UITableViewCell {
     }
     
     
-    var likeButtonAction: (() -> Void)?
+    //var likeButtonAction: (() -> Void)?
     
     @IBAction func likeAction(_ sender: UIButton) {
-        likeButtonAction?()
+        
+       
+        
+       // likeButtonAction?()
     }
     
     
     
     @IBAction func commentAction(_ sender: UIButton) {
+        self.delegate?.showComments(indexPath: indexPath)
     }
     
     
@@ -71,4 +76,8 @@ class PostViewCell: UITableViewCell {
     }
     
 
+}
+
+protocol PostCellDelegate : AnyObject{
+    func showComments(indexPath : IndexPath)
 }

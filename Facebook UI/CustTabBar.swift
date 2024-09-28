@@ -8,7 +8,15 @@
 import UIKit
 
 class CustTabBar: UITabBarController{
-
+    
+    
+    @IBAction func addPostBTN(_ sender: UIBarButtonItem) {
+        
+        print("dss")
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         changeNavCtrl()
@@ -31,7 +39,7 @@ class CustTabBar: UITabBarController{
             titleLabel.text = "Facebook"
             titleLabel.textColor = titleColor
             titleLabel.font = titleFont
-          //  titleLabel.textAlignment = .left
+            titleLabel.textAlignment = .left
         titleLabel.frame = CGRect(x: 0, y: 0, width: 200, height: 40)
             navigationItem.titleView = titleLabel
     
