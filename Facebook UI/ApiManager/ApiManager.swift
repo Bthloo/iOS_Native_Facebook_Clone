@@ -7,48 +7,91 @@
 //
 //import Foundation
 //
-//class ApiManager{
-//    
-//    var delegate : WeatherAppDelegate?
-//    
-//    // https://api.weatherapi.com/v1/current.json?key=8e2699296de143708ad173859230207&q=Cairo
-//    
-//    
-//    static let sharedService = ApiManager()
-//    func getWeatherData(cityName : String, completion : @escaping (_ weather : Weather? ,_ error : Error?) -> Void){
-//        
-//        self.delegate?.loading()
-//        guard let url = URL(string: "https://api.weatherapi.com/v1/current.json?key=8e2699296de143708ad173859230207&q=\(cityName)")else{return}
-//        let session = URLSession.shared
-//        let request = URLRequest(url: url)
-//        let task = session.dataTask(with: request) { (data, response, error) in
-//            
-//            
-//            if error != nil{
-//                self.delegate?.didFail(error: error)
-//                completion(nil ,error)
-//            }else{
-//                
-//                do{
-//                    
-//                    let weather = try JSONDecoder().decode(Weather.self, from: data!)
-//                    
-//                    
-//                   
-//                    self.delegate?.didFetchData(weather: weather)
-//                    completion(weather ,nil)
-//                }catch{
-//                    
-//                    
-//                    self.delegate?.didFail(error: error)
-//                    completion(nil ,error)
-//                    
-//                }
-//            }
-//            
-//            
-//        }
-//        task.resume()
-//    }
-//    
-//}
+
+import Foundation
+class ApiManager{
+    
+    var postDelegate : GetPostsDelegate?
+    var commentDelegate : GetCommentsDelegate?
+    
+    static let sharedService = ApiManager()
+    
+    func getPosts(){
+        self.postDelegate?.loading()
+        guard let url = URL(string: "https://dummyjson.com/posts")else{return}
+        let session = URLSession.shared
+        let request = URLRequest(url: url)
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                self.postDelegate?.didFail(error: error)
+                    return
+                }else{
+            
+                    guard let data = data else {
+                        self.postDelegate?.didFail(error: NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data received"]))
+                           return
+                       }
+                    do {
+                            let postModel = try JSONDecoder().decode(PostModel.self, from: data) // 
+                        self.postDelegate?.didFetchData(posts: postModel)
+                        } catch {
+                            self.postDelegate?.didFail(error: error)
+                        }
+            }
+        }
+        task.resume()
+    }
+    
+    
+    
+    func getComments(postID : Int){
+
+        self.commentDelegate?.loading()
+        guard let url = URL(string: "https://dummyjson.com/posts/\(postID)/comments")else{return}
+        let session = URLSession.shared
+        let request = URLRequest(url: url)
+        let task = session.dataTask(with: request) { (data, response, error) in
+            
+            
+            if let error = error {
+                self.commentDelegate?.didFail(error: error)
+                    return
+                }else{
+            
+                    guard let data = data else {
+                        self.commentDelegate?.didFail(error: NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data received"]))
+                           return
+                       }
+                    
+                    
+                    do {
+                        let commentModel = try JSONDecoder().decode(CommentModel.self, from: data) //
+                        self.commentDelegate?.didFetchData(comments: commentModel)
+                        } catch {
+                            self.commentDelegate?.didFail(error: error)
+                        }
+            }
+            
+            
+        }
+        task.resume()
+    }
+    
+    
+    
+}
+
+
+
+protocol GetPostsDelegate{
+    func didFetchData(posts : PostModel)
+    func didFail(error : Error?)
+    func loading()
+}
+
+protocol GetCommentsDelegate{
+    func didFetchData(comments : CommentModel)
+    func didFail(error : Error?)
+    func loading()
+}
+

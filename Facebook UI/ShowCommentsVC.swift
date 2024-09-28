@@ -9,6 +9,12 @@ import UIKit
 
 class ShowCommentsVC: UIViewController {
     
+    var commentsList = [Comment]()
+    
+    var activityIndicator: UIActivityIndicatorView!
+    var errorLBL : UILabel!
+    var emptyListLBL : UILabel!
+    var postID : Int!
     
     @IBOutlet weak var commentsTV: UITableView!
     
@@ -23,59 +29,101 @@ class ShowCommentsVC: UIViewController {
         super.viewDidLoad()
         commentsTV.delegate = self
         commentsTV.dataSource = self
+        commentsTV.allowsSelection = false
+        setupActivityIndicator()
+        setupErrorLabel()
+        setupEmptyListLabel()
+        ApiManager.sharedService.commentDelegate = self
+        getComments()
         // Do any additional setup after loading the view.
     }
     
-
+    func getComments(){
+        ApiManager.sharedService.getComments(postID: postID)
+        }
+    
+    func setupActivityIndicator() {
+                activityIndicator = UIActivityIndicatorView(style: .large)
+                activityIndicator.center = self.view.center
+                activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = .gray
+                self.view.addSubview(activityIndicator)
+            }
+        
+        func setupErrorLabel(){
+            errorLBL = UILabel()
+            errorLBL.textColor = .black
+             // errorLBL.text = errorMSG
+            errorLBL.textAlignment = .center
+                errorLBL.frame = CGRect(x: 0, y: 0, width: 200, height: 50) // Set a frame with width and height
+            errorLBL.numberOfLines = 0
+            errorLBL.lineBreakMode = .byWordWrapping
+                errorLBL.center = self.view.center // Positio
+            self.view.addSubview(errorLBL)
+        }
+    
+    func setupEmptyListLabel(){
+        emptyListLBL = UILabel()
+        emptyListLBL.textColor = .black
+         // errorLBL.text = errorMSG
+        emptyListLBL.textAlignment = .center
+        emptyListLBL.frame = CGRect(x: 0, y: 0, width: 200, height: 50) // Set a frame with width and height
+        emptyListLBL.numberOfLines = 0
+        emptyListLBL.lineBreakMode = .byWordWrapping
+        emptyListLBL.center = self.view.center // Positio
+        self.view.addSubview(emptyListLBL)
+    }
     
 
 }
 
 
-extension ShowCommentsVC : UITableViewDelegate,UITableViewDataSource {
+extension ShowCommentsVC : UITableViewDelegate,UITableViewDataSource, GetCommentsDelegate{
+    func didFetchData(comments: CommentModel) {
+        print("success")
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            if comments.comments.isEmpty{
+                self.emptyListLBL.text = "There is no comments"
+                
+            }else{
+                self.commentsList = comments.comments
+                self.commentsTV.reloadData()
+            }
+            
+           
+           
+        }
+    }
+    
+    func didFail(error: (any Error)?) {
+        print("fail")
+        DispatchQueue.main.async{
+                   self.activityIndicator.stopAnimating()
+                   self.errorLBL.text = error?.localizedDescription
+                   self.errorLBL.isHidden = false
+               }
+    }
+    
+    func loading() {
+        print("loading")
+        DispatchQueue.main.async{
+                    self.activityIndicator.startAnimating()
+                }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comments.count
+        return commentsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShowCommentCell", for: indexPath) as! ShowCommentsCell
         
-        cell.comment.text = comments[indexPath.row].commentContent
-        cell.name.text = comments[indexPath.row].username
+        cell.name.text = commentsList[indexPath.row].user.fullName
+        cell.comment.text = commentsList[indexPath.row].body
         return cell
     }
     
     
     
 }
-
-
-struct CommentModel {
-    let username: String
-    let commentContent: String
-}
-
-
-
-let comments: [CommentModel] = [
-    CommentModel(username: "Alice", commentContent: "This is amazing!"),
-    CommentModel(username: "Bob", commentContent: "I completely agree."),
-    CommentModel(username: "Charlie", commentContent: "Interesting perspective."),
-    CommentModel(username: "David", commentContent: "Can you explain more?"),
-    CommentModel(username: "Eve", commentContent: "Thanks for sharing."),
-    CommentModel(username: "Frank", commentContent: "This made my Your analysis is spot on! It rare to come across content that digs so deeply into the heart of the issue. I found myself thinking about this long after I finished reading.day."),
-    CommentModel(username: "Grace", commentContent: "Not sure I agree."),
-    CommentModel(username: "Hank", commentContent: "Well written!"),
-    CommentModel(username: "Ivy", commentContent: "I have a question."),
-    CommentModel(username: "Jack", commentContent: "Loved this content!"),
-    CommentModel(username: "Kathy", commentContent: "This needs more attention."),
-    CommentModel(username: "Leo", commentContent: "Fascinating read!"),
-    CommentModel(username: "Mia", commentContent: "Could be better."),
-    CommentModel(username: "Nina", commentContent: "Keep up the great work."),
-    CommentModel(username: "Oscar", commentContent: "I'm learning so much."),
-    CommentModel(username: "Paul", commentContent: "Please share more details."),
-    CommentModel(username: "Quincy", commentContent: "Good point!"),
-    CommentModel(username: "Rachel", commentContent: "I found this helpful."),
-    CommentModel(username: "Steve", commentContent: "Not sure about this."),
-    CommentModel(username: "Tina", commentContent: "This is insightful!")
-]

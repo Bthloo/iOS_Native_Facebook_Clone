@@ -55,6 +55,7 @@ class PostViewCell: UITableViewCell {
     
     
     @IBAction func commentAction(_ sender: UIButton) {
+        print("open comment")
         self.delegate?.showComments(indexPath: indexPath)
     }
     
