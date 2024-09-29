@@ -27,7 +27,7 @@ class CustTabBar: UITabBarController{
     
 
     func changeNavCtrl(){
-        
+        self.navigationItem.hidesBackButton = true
         let titleFont = UIFont.boldSystemFont(ofSize: 24)
         let titleColor = UIColor.tintColor
             navigationController?.navigationBar.titleTextAttributes = [

@@ -13,6 +13,8 @@ class ApiManager{
     
     var postDelegate : GetPostsDelegate?
     var commentDelegate : GetCommentsDelegate?
+    var loginDelegate : LoginDelegate?
+    var profileDelegate : GetProfileDelegate?
     
     static let sharedService = ApiManager()
     
@@ -79,6 +81,110 @@ class ApiManager{
     
     
     
+    func login(userName : String, password : String){
+        
+        loginDelegate?.loading()
+        
+        guard let url = URL(string: "https://dummyjson.com/user/login")else{return}
+        let session = URLSession.shared
+        let requestBody: [String: Any] = [
+            "username": userName,
+            "password": password
+        ]
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        do{
+            request.httpBody = try JSONSerialization.data(withJSONObject: requestBody, options: [])
+        }catch{
+            print("json fail")
+            self.loginDelegate?.fail(error: error)
+        }
+        
+       
+        let task = session.dataTask(with: request) { (data, response, error) in
+            
+            
+            if let error = error {
+                self.loginDelegate?.fail(error: error)
+                return
+            }else{
+                guard let data = data else{
+                    
+                    self.loginDelegate?.fail(error: NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data received"]))
+                       return
+                }
+                
+                do{
+                    
+                    
+                    let loginModel = try JSONDecoder().decode(LoginModel.self, from: data)
+                    
+                    if loginModel.message != nil {
+                        self.loginDelegate?.fail(error: NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: loginModel.message!]))
+                    }else{
+                        self.loginDelegate?.success(loginModel: loginModel)
+                    }
+                    
+                }catch{
+                    self.loginDelegate?.fail(error: error)
+                }
+            }
+            
+        }
+        task.resume()
+        
+    }
+    
+    
+    func getProfile(token : String){
+        
+        self.profileDelegate?.loading()
+        
+        guard let url = URL(string: "https://dummyjson.com/user/me")else{return}
+        let session = URLSession.shared
+        var request = URLRequest(url: url)
+        request.addValue(token, forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+
+        let task = session.dataTask(with: request) { (data, response, error) in
+          
+            if let error = error {
+                self.profileDelegate?.fail(error: error)
+                return
+            }else{
+                guard let data = data else{
+                    self.profileDelegate?.fail(error: NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data received"]))
+                    return
+                }
+                
+                do{
+                    
+                    
+                    let profileModel = try JSONDecoder().decode(ProfileModel.self, from: data)
+                    
+                    
+                    if profileModel.message == nil{
+                        self.profileDelegate?.success(profileModel: profileModel)
+                    }else{
+                        self.profileDelegate?.fail(error: NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: profileModel.message!]))
+                        return
+                    }
+                    
+                    
+                }catch{
+                    self.profileDelegate?.fail(error: error)
+                }
+                
+            }
+            
+        }
+
+        task.resume()
+    }
+    
+    
+    
 }
 
 
@@ -92,6 +198,18 @@ protocol GetPostsDelegate{
 protocol GetCommentsDelegate{
     func didFetchData(comments : CommentModel)
     func didFail(error : Error?)
+    func loading()
+}
+
+protocol LoginDelegate{
+    func success(loginModel : LoginModel)
+    func fail(error : Error?)
+    func loading()
+}
+
+protocol GetProfileDelegate{
+    func success(profileModel : ProfileModel)
+    func fail(error : Error?)
     func loading()
 }
 

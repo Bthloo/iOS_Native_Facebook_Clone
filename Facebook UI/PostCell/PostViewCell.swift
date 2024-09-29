@@ -47,7 +47,7 @@ class PostViewCell: UITableViewCell {
     
     @IBAction func likeAction(_ sender: UIButton) {
         
-       
+        self.delegate?.likePost(indexPath: indexPath)
         
        // likeButtonAction?()
     }
@@ -81,4 +81,5 @@ class PostViewCell: UITableViewCell {
 
 protocol PostCellDelegate : AnyObject{
     func showComments(indexPath : IndexPath)
+    func likePost(indexPath : IndexPath)
 }

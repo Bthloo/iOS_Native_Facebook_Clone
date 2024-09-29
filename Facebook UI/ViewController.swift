@@ -31,6 +31,7 @@ class ViewController: UIViewController {
         setupErrorLabel()
         ApiManager.sharedService.postDelegate = self
         getPosts()
+        
 //        postsTV.estimatedRowHeight = 100
 //        postsTV.rowHeight = UITableView.automaticDimension
       
@@ -70,7 +71,7 @@ class ViewController: UIViewController {
 
 
 extension ViewController : UITableViewDelegate,UITableViewDataSource,PostCellDelegate, GetPostsDelegate {
-
+   
     func didFetchData(posts: PostModel) {
         
         print("success")
@@ -93,14 +94,13 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource,PostCellDel
     
     func loading() {
         
-        print("loading")
         DispatchQueue.main.async{
                     self.activityIndicator.startAnimating()
                 }
     }
     
     func showComments(indexPath: IndexPath) {
-        print("dsdsd")
+
         let showCommentVC =  self.storyboard?.instantiateViewController(withIdentifier: "ShowCommentVC") as! ShowCommentsVC
         
         showCommentVC.modalPresentationStyle = .pageSheet
@@ -111,7 +111,23 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource,PostCellDel
     }
     
     
-    
+    func likePost(indexPath: IndexPath) {
+        print("like at \(indexPath)")
+        
+       
+        if self.postList[indexPath.row].isLiked{
+            self.postList[indexPath.row].reactions.likes -= 1
+        
+        }else{
+            self.postList[indexPath.row].reactions.likes += 1
+            
+        }
+        
+        self.postList[indexPath.row].isLiked = !self.postList[indexPath.row].isLiked
+        self.postsTV.reloadRows(at: [indexPath], with: .automatic)
+
+        
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postList.count
@@ -126,17 +142,28 @@ extension ViewController : UITableViewDelegate,UITableViewDataSource,PostCellDel
         cell.postText.text = postList[indexPath.row].body
         cell.numberOfLikes.text = String(postList[indexPath.row].reactions.likes) + " likes"
         cell.numberOfComment.text = String(postList[indexPath.row].views) + " views"
+       
+        
+        if postList[indexPath.row].isLiked {
+            cell.likeBTNLBL.setTitle(" Liked", for: .normal)
+           // cell.likeBTNLBL.setTitleColor(.tintColor, for: .normal)
+            cell.likeBTNLBL.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
+        
+            cell.likeBTNLBL.configuration?.baseForegroundColor = .systemBlue
+            } else {
+                cell.likeBTNLBL.setTitle(" Like", for: .normal)
+               // cell.likeBTNLBL.setTitleColor(.gray, for: .normal)
+                cell.likeBTNLBL.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
+              
+                cell.likeBTNLBL.configuration?.baseForegroundColor = .gray
+            }
         cell.delegate = self
         cell.indexPath = indexPath
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
    
-
-    
-    }
     
 
     

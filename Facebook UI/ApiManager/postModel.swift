@@ -14,9 +14,10 @@ struct PostModel: Codable {
 // MARK: - Post
 struct Post: Codable {
     let id: Int
+    var isLiked = false
     let title, body: String
     let tags: [String]
-    let reactions: Reactions
+    var reactions: Reactions
     let views, userID: Int
 
     enum CodingKeys: String, CodingKey {
@@ -27,6 +28,7 @@ struct Post: Codable {
 
 // MARK: - Reactions
 struct Reactions: Codable {
-    let likes, dislikes: Int
+    var likes: Int
+    var dislikes: Int
 }
 
