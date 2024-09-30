@@ -103,7 +103,8 @@ class ApiManager{
         
        
         let task = session.dataTask(with: request) { (data, response, error) in
-            
+            let status = (response as! HTTPURLResponse).statusCode
+                    print("response status: \(status)")
             
             if let error = error {
                 self.loginDelegate?.fail(error: error)
@@ -148,7 +149,8 @@ class ApiManager{
         request.httpMethod = "GET"
 
         let task = session.dataTask(with: request) { (data, response, error) in
-          
+            let status = (response as! HTTPURLResponse).statusCode
+                    print("response status: \(status)")
             if let error = error {
                 self.profileDelegate?.fail(error: error)
                 return
