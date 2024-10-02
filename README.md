@@ -51,8 +51,8 @@ The primary purpose of this app is to demonstrate functionality without altering
 
 ## Screenshots
 
-|  Login Screen  |   Home Screen  | Comment Screen | Profile Screen |
-|----------------|----------------|----------------|----------------|
-| ![Login Screen](https://github.com/user-attachments/assets/4961b355-e7c9-49ad-92a2-ab3a33a44dfc) | ![Home Screen](https://github.com/user-attachments/assets/776d13d4-cfc8-4e25-ba8f-a580afc867a1) | ![Comments Screen](https://github.com/user-attachments/assets/23694942-c601-4866-9227-b9a5a927f7f2) | ![Profile Screen](https://github.com/user-attachments/assets/8c674946-3970-4a43-89db-9ce7a5677ee6) |
+|  Login Screen  | Register Screen|   Home Screen  | Comment Screen | Profile Screen |
+|----------------|----------------|----------------|----------------|----------------|
+| ![Login Screen](https://github.com/user-attachments/assets/201ad2f3-c858-44f3-b8c5-bbc0fa1b2e8f) | ![Register Screen](https://github.com/user-attachments/assets/4450da2c-0cde-4a91-aed8-984d2843e6c7) | ![Home Screen](https://github.com/user-attachments/assets/776d13d4-cfc8-4e25-ba8f-a580afc867a1) | ![Comments Screen](https://github.com/user-attachments/assets/23694942-c601-4866-9227-b9a5a927f7f2) | ![Profile Screen](https://github.com/user-attachments/assets/8c674946-3970-4a43-89db-9ce7a5677ee6) |
 
 
