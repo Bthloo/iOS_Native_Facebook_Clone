@@ -5,14 +5,14 @@ This is a Facebook clone application developed using iOS native technologies. Th
 ## Features
 
 - **User Authentication**
-  - Login and Signup functionality (signup not done yet)
+  - Login and Signup functionality
 - **Post Feed**
   - View a feed of posts fetched from a dummy API
-  - Like and comment on posts (add comment not done yet)
+  - Like and comment on posts (add a comment not done yet)
 - **Profile Management**
   - View and edit user profile information
 - **Post Creation**
-  - Create new posts, upload images (not done yet)
+  - Create new posts, and upload images (not done yet)
 - **Comments**
   - Add and view comments on posts (add comments not done yet)
 - **Search**
